@@ -12,14 +12,6 @@ Finally, the script also includes a cell for answering questions related to the 
 
 Overall, this project provides a convenient way to quickly and easily access complete recipes from allrecipe.com, along with additional features to modify the recipe and answer related questions
 
-## Dependencies
-
-This script requires the following dependencies:
-
-Python 3.x
-BeautifulSoup
-Requests
-
 ## Usage
 
 To use this script, simply run all the cells to get all the necessary features of the recipe. You can then use the transform_to_vegetarian() function to transform the recipe into a vegetarian version. Lastly, you can use the last cell to ask questions related to the recipe.
