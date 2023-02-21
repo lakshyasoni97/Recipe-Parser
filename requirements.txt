@@ -1,0 +1,9 @@
+SpeechRecognition
+pyttsx3
+playsound
+gtts
+speech_recognition
+pycopy-webbrowser
+duckduckgo-search
+PyAudio
+pillow
