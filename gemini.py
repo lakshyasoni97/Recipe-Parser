@@ -4,11 +4,11 @@ import re
 
 
 
-def get_gemini_response(input, prompt):
+def get_gemini_response(input, prompt, temperature = 0.9):
     gemini_api_key = 'AIzaSyD_KjRhWvNQ5EBoFvEQ54Bo16mRMZ-Yfa0'
     genai.configure(api_key=gemini_api_key)
     generation_config = {
-        "temperature": 0.9,
+        "temperature": temperature,
         "top_p": 1,
         "top_k": 1,
         "max_output_tokens": 2048,

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 import json
 import re
-
+import os
 
 
 def display_image(image_url):
@@ -47,9 +47,6 @@ def extract_recipe_details(recipe_json):
     return steps, ingredients, servings, utensils
 
 
-
-
-
 def extract_timestamps(recipe_json):
     recipe_json = recipe_json.strip("`").replace('```', '')
     recipe_json = re.sub(r'\s*JSON\s*\n?', '', recipe_json, flags=re.IGNORECASE)
@@ -65,3 +62,34 @@ def extract_timestamps(recipe_json):
             dic[key] = int(value)
         except:
             dic[key] = value
+    return dic
+    
+    
+
+def append_to_json_file(file_path, data):
+    # Check if the file exists and is not empty
+    if os.path.exists(file_path) and os.path.getsize(file_path) > 0:
+        with open(file_path, "r") as file:
+            existing_data = json.load(file)
+    else:
+        existing_data = []
+    # Append the new data to the existing data
+    if len(existing_data) > 0 and list(data.keys())[0] not in existing_data[0].keys():
+        existing_data.append(data)
+    # Write the updated data back to the file
+    with open(file_path, "w") as file:
+        json.dump(existing_data, file, indent=4)
+        
+
+
+def load_json_file(file_path):
+    try:
+        with open(file_path, "r") as file:
+            data = json.load(file)
+        return data
+    except FileNotFoundError:
+        print(f"File '{file_path}' not found.")
+        return None
+    except json.JSONDecodeError:
+        print(f"File '{file_path}' is not a valid JSON file.")
+        return None
