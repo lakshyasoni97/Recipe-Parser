@@ -76,7 +76,7 @@ def main():
     st.title("Recipe Helper")
 
     # User inputs the recipe name
-    recipe_to_cook = st.text_input("Enter the name of the recipe", "shahi paneer")
+    recipe_to_cook = st.text_input("Enter the name of the recipe")
 
     if recipe_to_cook:
         # Search for YouTube videos with English transcripts
@@ -90,14 +90,17 @@ def main():
             file_path = "cache.json"
             loaded_data = load_json_file(file_path)
 
-            if recipe_chosen['id'] in loaded_data[0].keys():
-                dictionary = loaded_data[0][recipe_chosen['id']]
-                steps = dictionary['steps']
-                ingredients = dictionary['ingredients']
-                servings = dictionary['servings']
-                utensils = dictionary['utensils']
-                timestamps_urls = dictionary['timestamps_urls']
-                base_youtube_video_url = f"https://www.youtube.com/embed/{recipe_chosen['id']}"
+            # Check if the recipe is already in the cache
+            if loaded_data is not None:
+                if len(loaded_data) > 0:
+                    if recipe_chosen['id'] in loaded_data[0].keys():
+                        dictionary = loaded_data[0][recipe_chosen['id']]
+                        steps = dictionary['steps']
+                        ingredients = dictionary['ingredients']
+                        servings = dictionary['servings']
+                        utensils = dictionary['utensils']
+                        timestamps_urls = dictionary['timestamps_urls']
+                        base_youtube_video_url = f"https://www.youtube.com/embed/{recipe_chosen['id']}"
             else:
                 transcript = get_transcript(recipe_chosen['id'])  # transcript with time stamps
                 transcript_list = [i['text'] for i in transcript] # has individual element from the transcript
