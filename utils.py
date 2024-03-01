@@ -75,10 +75,9 @@ def append_to_json_file(file_path, data):
         existing_data = []
     # Append the new data to the existing data
     if len(existing_data) > 0 and list(data.keys())[0] not in existing_data[0].keys():
-        existing_data.append(data)
     # Write the updated data back to the file
-    with open(file_path, "w") as file:
-        json.dump(existing_data, file, indent=4)
+        with open(file_path, "w") as file:
+            json.dump([data], file, indent=4)
         
 
 
