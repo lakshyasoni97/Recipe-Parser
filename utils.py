@@ -1,20 +1,20 @@
-from skimage import io
-import matplotlib.pyplot as plt
+# from skimage import io
+# import matplotlib.pyplot as plt
 from PIL import Image
 import json
 import re
 import os
 
 
-def display_image(image_url):
-    '''this function displays the image possible from all the urls'''
-    try:
-        a = io.imread(image_url)
-        plt.imshow(a)
-        plt.axis('off')
-        plt.show()
-    except Exception as e:
-        print(f"Could not load image {e}")
+# def display_image(image_url):
+#     '''this function displays the image possible from all the urls'''
+#     try:
+#         a = io.imread(image_url)
+#         plt.imshow(a)
+#         plt.axis('off')
+#         plt.show()
+#     except Exception as e:
+#         print(f"Could not load image {e}")
         
 
 def extract_recipe_details(recipe_json):

@@ -5,4 +5,3 @@ opencv-python
 youtube-transcript-api
 google-generativeai
 streamlit
-scikit-image
