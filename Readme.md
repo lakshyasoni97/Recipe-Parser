@@ -1,17 +1,56 @@
-# Recipe Parser
 
-This Python script allows you to scrape complete recipes from allrecipe.com and get all the required details. It also includes an option to transform the recipe into a vegetarian version. Additionally, it includes a cell for answering questions related to the recipe.
+# Recipe Helper
 
-This project is a Python script that allows you to scrape complete recipes from allrecipe.com and get all the required details. It uses the BeautifulSoup library to parse and extract data from the website.
 
-The script has the ability to scrape any recipe from allrecipe.com, simply by inputting the name of the recipe. The output includes the name of the recipe, the ingredients, the cooking instructions, and the cooking time.
+## Overview
 
-In addition to scraping the recipe, the script also includes an option to transform the recipe into a vegetarian version. This is done by replacing any non-vegetarian ingredients with suitable vegetarian alternatives.
+The Recipe Helper is a Streamlit-based web application designed to assist users in finding and preparing recipes. By entering the name of a dish, users can search for relevant cooking videos, view detailed recipe information, and even get timestamps for crucial steps in the video. This application integrates with YouTube to fetch recipe videos and uses google gemini to extract recipe details and timestamps from video transcripts.
 
-Finally, the script also includes a cell for answering questions related to the recipe. This allows the user to ask questions about the recipe, such as the cooking time or the number of servings, and receive a direct answer from the script.
+## Features
 
-Overall, this project provides a convenient way to quickly and easily access complete recipes from allrecipe.com, along with additional features to modify the recipe and answer related questions
+- **User Authentication**: Secure login system to ensure that only authorized users can access the application.
+- **Recipe Search**: Users can search for recipes by entering the name of the dish.
+- **Detailed Recipe Information**: For each selected video, the application displays ingredients, servings, utensils needed, and step-by-step instructions.
+- **Timestamps**: Users can view the exact timestamps for each step in the recipe video, making it easier to follow along.
+
+## Setup Instructions
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/lakshyasoni97/Recipe-Parser.git
+   cd Recipe-Parser
+   ```
+
+
+2. **Install Requirements**
+
+   - Ensure you have Python installed on your system.
+   - Install the required Python packages:
+     ```bash
+     pip install -r requirements.txt
+     ```
+3. **Run the Application**
+
+   - To start the application, use the following command:
+     ```bash
+     streamlit run ui.py
+     ```
+4. **Access the Application**
+
+   - Open your web browser and navigate to `http://localhost:8501`. You should see the login page of the Recipe Helper application.
 
 ## Usage
 
-To use this script, simply run all the cells to get all the necessary features of the recipe. You can then use the transform_to_vegetarian() function to transform the recipe into a vegetarian version. Lastly, you can use the last cell to ask questions related to the recipe.
+1. **Login**: Use the default username (`user`) and password (`password`) to log in.
+2. **Search for a Recipe**: Enter the name of the dish you're interested in cooking in the text input field.
+3. **Select a Video**: Choose a cooking video from the dropdown list to see more details.
+4. **Fetch Recipe Details**: Click the "Fetch Recipe Details" button to view ingredients, utensils, servings, and step-by-step instructions.
+5. **Follow Along**: Use the provided timestamps to follow along with the video on YouTube.
+
+## Security Note
+
+The current version of the Recipe Helper uses a simple authentication system with hardcoded credentials for demonstration purposes. For production environments, it is strongly recommended to implement a more secure authentication method, such as OAuth, and to manage user credentials securely.
+
+## Contribution
+
+Contributions to the Recipe Helper are welcome! Please fork the repository and submit a pull request with your proposed changes.

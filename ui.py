@@ -2,8 +2,30 @@ import streamlit as st
 from utils import extract_recipe_details, extract_timestamps
 from youtube_scrapper import get_eng_recipe
 from gemini import get_gemini_response, create_prompt_for_recipe, create_prompt_for_timestamps
+from config import USER_CREDENTIALS
 
-def main():
+# gemini_api_key = st.secrets['gemini_api_key']
+
+def check_login(username, password):
+    """Check if the username and password are correct."""
+    return username == USER_CREDENTIALS["username"] and password == USER_CREDENTIALS["password"]
+
+def login_form():
+    """Display the login form and handle authentication."""
+    st.sidebar.title("Login")
+    username = st.sidebar.text_input("Username")
+    password = st.sidebar.text_input("Password", type="password")
+    gemini_api_key = st.sidebar.text_input("Gemini API Key")
+    if st.sidebar.button("Login"):
+        if check_login(username, password):
+            st.session_state["authenticated"] = True
+            st.session_state["gemini_api_key"] = gemini_api_key 
+            st.experimental_rerun()
+        else:
+            st.sidebar.error("Invalid username or password.")
+
+def main_app(gemini_api_key):
+    
     st.title("Recipe Helper")
     # Initialize session state variables if they don't exist
     if 'eng_recipes' not in st.session_state:
@@ -43,30 +65,44 @@ def main():
                 if st.button('Fetch Recipe Details'):
                     with st.spinner('Fetching recipe details...'):
                         try:
-                            steps, ingredients, servings, utensils = fetch_recipe_details(selected_video, recipe_to_cook)
-                            display_recipe_details(ingredients, servings, utensils, steps)
-
-                            timestamps = fetch_recipe_steps_timestamps(selected_video, steps, recipe_to_cook)
+                            steps, ingredients, servings, utensils = fetch_recipe_details(selected_video, recipe_to_cook, gemini_api_key)
+                            display_recipe_details(ingredients, servings, utensils)
+                            timestamps = fetch_recipe_steps_timestamps(selected_video, steps, recipe_to_cook, gemini_api_key)
                             display_steps_timestamps(steps, timestamps)
-                            
+
                             embed_youtube_video(base_youtube_video_url)
                             st.session_state.recipe_details_fetched = True
                         except Exception as e:
                             st.error("An error occurred while processing the recipe details. Please try again.")
                             st.error(f"Error details: {e}")
 
-def fetch_recipe_details(selected_video, recipe_to_cook):
+
+def main():
+    # Initialize session state variable for authentication
+    if 'authenticated' not in st.session_state:
+        st.session_state['authenticated'] = False
+
+    if st.session_state['authenticated']:
+        gemini_api_key = st.session_state['gemini_api_key']
+        main_app(gemini_api_key)
+    else:
+        login_form()
+
+
+
+
+def fetch_recipe_details(selected_video, recipe_to_cook, gemini_api_key):
     recipe_prompt = create_prompt_for_recipe(selected_video['transcript'], recipe_to_cook)
-    recipe_output = get_gemini_response(*recipe_prompt)
+    recipe_output = get_gemini_response(*recipe_prompt, gemini_api_key)
     steps, ingredients, servings, utensils = extract_recipe_details(recipe_output)
     return steps, ingredients, servings, utensils
 
-def fetch_recipe_steps_timestamps(selected_video, steps, recipe_to_cook):
+def fetch_recipe_steps_timestamps(selected_video, steps, recipe_to_cook, gemini_api_key):
     timestamp_prompt = create_prompt_for_timestamps(selected_video['transcript'], steps, recipe_to_cook)
-    timestamp_output = get_gemini_response(*timestamp_prompt)
+    timestamp_output = get_gemini_response(*timestamp_prompt, gemini_api_key)
     return extract_timestamps(timestamp_output)
 
-def display_recipe_details(ingredients, servings, utensils, steps):
+def display_recipe_details(ingredients, servings, utensils):
     st.subheader("Recipe Details")
     st.write("Ingredients:", ingredients)
     st.write("Servings:", servings)

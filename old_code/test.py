@@ -1,7 +1,7 @@
 recipe_query = input('enter recipe name: ')
 servings_query = int(input('enter the number of person you want to cook the recipe for: '))
 
-from allrecipe_scraper import recipe_parser
+from old_code.allrecipe_scraper import recipe_parser
 
 try:
     rcp = recipe_parser()
