@@ -1,9 +1,7 @@
-SpeechRecognition
-pyttsx3
-playsound
-gtts
-speech_recognition
-pycopy-webbrowser
-duckduckgo-search
-PyAudio
-pillow
+youtube-search
+youtube-transcript-api
+pytube
+opencv-python
+youtube-transcript-api
+google-generativeai
+streamlit
