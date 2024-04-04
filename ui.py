@@ -10,17 +10,18 @@ def check_login(username, password):
 
 def login_form():
     """Display the login form and handle authentication."""
-    st.sidebar.title("Login")
-    username = st.sidebar.text_input("Username")
-    password = st.sidebar.text_input("Password", type="password")
+    st.sidebar.title("Enter Your API Key")
+    # username = st.sidebar.text_input("Username")
+    # password = st.sidebar.text_input("Password", type="password")
     gemini_api_key = st.sidebar.text_input("Gemini API Key")
     if st.sidebar.button("Login"):
-        if check_login(username, password):
+        # if check_login(username, password):
+        if gemini_api_key:
             st.session_state["authenticated"] = True
             st.session_state["gemini_api_key"] = gemini_api_key 
             st.rerun()
         else:
-            st.sidebar.error("Invalid username or password.")
+            st.sidebar.error("Please enter a valid API key.")
 
 def main_app(gemini_api_key):
     st.title("Recipe Helper")
@@ -49,7 +50,7 @@ def main_app(gemini_api_key):
                     st.error(f"Error details: {e}")
 
     if st.session_state.eng_recipes:
-        video_titles = [recipe['title'] for recipe in st.session_state.eng_recipes]
+        video_titles = ['VIEWS: ' + recipe['views'].split()[0] + "; TITLE: " + recipe['title'] for recipe in st.session_state.eng_recipes]
         index_of_recipe_chosen = st.selectbox("Select a video", options=range(len(video_titles)), format_func=lambda x: video_titles[x])
 
         if index_of_recipe_chosen != st.session_state.last_selected_recipe_index:
@@ -66,10 +67,10 @@ def main_app(gemini_api_key):
                     st.session_state.ingredients = ingredients
                     st.session_state.servings = servings
                     st.session_state.utensils = utensils
-                    display_recipe_details(st.session_state.ingredients, st.session_state.servings, st.session_state.utensils )
-                    timestamps = fetch_recipe_steps_timestamps(st.session_state.selected_video, st.session_state.steps, recipe_to_cook, gemini_api_key)
-                    st.session_state.timestamps = timestamps
-                    display_steps_timestamps(st.session_state.steps, st.session_state.timestamps)
+                    display_recipe_details(st.session_state.ingredients, st.session_state.servings, st.session_state.utensils, st.session_state.steps )
+                    # timestamps = fetch_recipe_steps_timestamps(st.session_state.selected_video, st.session_state.steps, recipe_to_cook, gemini_api_key)
+                    # st.session_state.timestamps = timestamps
+                    # display_steps_timestamps(st.session_state.steps, st.session_state.timestamps)
                     st.session_state.recipe_details_fetched = True
                 except Exception as e:
                     st.error("An error occurred while processing the recipe details. Please try again.")
@@ -118,11 +119,12 @@ def fetch_recipe_steps_timestamps(selected_video, steps, recipe_to_cook, gemini_
     timestamp_output = get_gemini_response(*timestamp_prompt, gemini_api_key)
     return extract_timestamps(timestamp_output)
 
-def display_recipe_details(ingredients, servings, utensils):
+def display_recipe_details(ingredients, servings, utensils, steps):
     st.subheader("Recipe Details")
     st.write("Ingredients:", ingredients)
     st.write("Servings:", servings)
     st.write("Utensils:", utensils)
+    st.write("Steps:", steps)
 
 def display_steps_timestamps(steps, timestamps):
     st.subheader("Steps and Timestamps")
