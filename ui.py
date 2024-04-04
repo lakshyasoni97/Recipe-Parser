@@ -2,11 +2,10 @@ import streamlit as st
 from utils import extract_recipe_details, extract_timestamps
 from youtube_scrapper import get_eng_recipe
 from gemini import get_gemini_response, create_prompt_for_recipe, create_prompt_for_timestamps, create_prompt_for_question_answering
-from config import USER_CREDENTIALS
 
-def check_login(username, password):
-    """Check if the username and password are correct."""
-    return username == USER_CREDENTIALS["username"] and password == USER_CREDENTIALS["password"]
+# def check_login(username, password):
+#     """Check if the username and password are correct."""
+#     return username == USER_CREDENTIALS["username"] and password == USER_CREDENTIALS["password"]
 
 def login_form():
     """Display the login form and handle authentication."""
