@@ -69,7 +69,7 @@ def create_prompt_for_timestamps(transcript, steps, recipe_to_cook):
     return model_role_time, prompt
 
 def create_prompt_for_question_answering(transcript, recipe_to_cook, question):
-    model_role = "As a chef with expertise in various recipes, your task is to provide detailed answers to questions based on a specific recipe's transcript. Use your culinary knowledge and the given transcript to offer insightful and accurate responses."
+    model_role = "As a chef with expertise in various recipes, your task is to provide detailed answers to questions based on a recipe's transcript. Use your culinary knowledge and the given transcript both to offer insightful and accurate responses."
 
     prompt = f"""Transcript of the {recipe_to_cook} Recipe: \n\n{transcript}\n\nGiven the detailed transcript above for the {recipe_to_cook} recipe, your expertise is needed to answer this culinary question:\n\nQuestion: {question}\n\nAs a chef, your Answer:"""
 
