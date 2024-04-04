@@ -41,15 +41,12 @@ The Recipe Helper is a Streamlit-based web application designed to assist users 
 
 ## Usage
 
-1. **Login**: Use the default username (`user`) and password (`password`) to log in.
+1. **Login**: Use your google gemini api key to log in.
 2. **Search for a Recipe**: Enter the name of the dish you're interested in cooking in the text input field.
 3. **Select a Video**: Choose a cooking video from the dropdown list to see more details.
 4. **Fetch Recipe Details**: Click the "Fetch Recipe Details" button to view ingredients, utensils, servings, and step-by-step instructions.
-5. **Follow Along**: Use the provided timestamps to follow along with the video on YouTube.
+5. **Follow Along**: If you have any questions about the recipe, you can ask your personal chef.
 
-## Security Note
-
-The current version of the Recipe Helper uses a simple authentication system with hardcoded credentials for demonstration purposes. For production environments, it is strongly recommended to implement a more secure authentication method, such as OAuth, and to manage user credentials securely.
 
 ## Contribution
 
