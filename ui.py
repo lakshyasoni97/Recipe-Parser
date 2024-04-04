@@ -94,8 +94,9 @@ def main_app(gemini_api_key):
         if 'chef_answer' in st.session_state:
             st.write(st.session_state['chef_answer'])
             embed_youtube_video(f"https://www.youtube.com/embed/{st.session_state.selected_video['id']}")
-            display_recipe_details(st.session_state.ingredients, st.session_state.servings, st.session_state.utensils )
-            display_steps_timestamps(st.session_state.steps, st.session_state.timestamps)
+            # display_recipe_details(st.session_state.ingredients, st.session_state.servings, st.session_state.utensils )
+            # display_steps_timestamps(st.session_state.steps, st.session_state.timestamps)
+            display_recipe_details(st.session_state.ingredients, st.session_state.servings, st.session_state.utensils, st.session_state.steps )
             
             
 
