@@ -1,5 +1,4 @@
 youtube-search
-youtube-transcript-api
 pytube
 opencv-python
 youtube-transcript-api
